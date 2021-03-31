@@ -21,6 +21,7 @@ public class Payment {
         this.paymentId = paymentId;
         this.userId = userId;
         this.amount = amount;
+        this.message = message;
     }
 
     public static Payment copyOf(Payment originalPayment) {
@@ -37,6 +38,10 @@ public class Payment {
 
     public Double getAmount() {
         return amount;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public void setMessage(String message) {
