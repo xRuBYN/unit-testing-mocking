@@ -1,82 +1,68 @@
 package com.endava.internship.mocking.service;
 
-
-import com.endava.internship.mocking.model.Payment;
 import com.endava.internship.mocking.model.Status;
 import com.endava.internship.mocking.model.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 public class BasicValidationServiceTest {
 
 
     private BasicValidationService basicValidationService;
 
     private User user;
-    private Payment payment;
 
     @BeforeEach
     void setUp() {
         basicValidationService = new BasicValidationService();
         user = new User(1, "John", Status.INACTIVE);
-        payment = new Payment(user.getId(),2000.1,null);
     }
 
     @Test
     void testValidateUserId() {
-        try {
-            basicValidationService.validateUserId(null);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"User id must not be null");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validateUserId(null));
+        assertEquals("User id must not be null", il.getMessage());
+
     }
 
     @Test
     void testValidateUser() {
-        try {
-            basicValidationService.validateUser(user);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"User with id " + user.getId() + " not in ACTIVE status");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validateUser(user));
+        assertEquals("User with id " + user.getId() + " not in ACTIVE status", il.getMessage());
     }
 
     @Test
     void testValidateMessage() {
-        try {
-           basicValidationService.validateMessage(null);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"Payment message must not be null");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validateMessage(null));
+        assertEquals("Payment message must not be null", il.getMessage());
     }
 
     @Test
     void testValidationAmountWhenIsNull() {
-        try {
-            basicValidationService.validateAmount(null);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"Amount must not be null");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validateAmount(null));
+        assertEquals("Amount must not be null", il.getMessage());
+
     }
 
     @Test
     void testValidationAmountWhenIsLessThenZero() {
-        try {
-            basicValidationService.validateAmount(-5d);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"Amount must be greater than 0");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validateAmount(-5d));
+        assertEquals("Amount must be greater than 0", il.getMessage());
     }
 
     @Test
     void testValidatePaymentId() {
-        try{
-            basicValidationService.validatePaymentId(null);
-        } catch (IllegalArgumentException e) {
-            Assertions.assertEquals(e.getMessage(),"Payment id must not be null");
-        }
+        IllegalArgumentException il = assertThrows(IllegalArgumentException.class,
+                () -> basicValidationService.validatePaymentId(null));
+        assertEquals("Payment id must not be null", il.getMessage());
     }
 }
