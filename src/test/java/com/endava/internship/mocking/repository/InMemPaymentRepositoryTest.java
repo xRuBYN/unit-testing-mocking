@@ -1,21 +1,16 @@
 package com.endava.internship.mocking.repository;
 
 import com.endava.internship.mocking.model.Payment;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-
-public class InMemPaymentRepositoryTest {
-
+class InMemPaymentRepositoryTest {
     private InMemPaymentRepository repository;
-
     private Payment payment;
     private Payment payment1;
 
@@ -28,7 +23,7 @@ public class InMemPaymentRepositoryTest {
 
     @Test
     void testSaveMethod() {
-        Assertions.assertEquals(repository.save(payment), payment);
+        Assertions.assertEquals(payment, repository.save(payment));
     }
 
     @Test
@@ -48,8 +43,8 @@ public class InMemPaymentRepositoryTest {
 
     @Test
     void testFindAllElementsIntoRepoByID() {
-        Assertions.assertEquals(repository.save(payment1), payment1);
-        Assertions.assertEquals(repository.save(payment), payment);
+        Assertions.assertEquals(payment1, repository.save(payment1));
+        Assertions.assertEquals(payment, repository.save(payment));
         Assertions.assertEquals(Optional.of(payment), repository.findById(payment.getPaymentId()));
     }
 
@@ -61,6 +56,6 @@ public class InMemPaymentRepositoryTest {
         repository.editMessage(payment.getPaymentId(), editMessage);
 
         Optional<Payment> newPayment = repository.findById(payment.getPaymentId());
-        Assertions.assertEquals(newPayment.get().getMessage(), editMessage);
+        Assertions.assertEquals(editMessage, newPayment.get().getMessage());
     }
 }

@@ -8,12 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
-public class BasicValidationServiceTest {
-
-
+class BasicValidationServiceTest {
     private BasicValidationService basicValidationService;
-
     private User user;
 
     @BeforeEach
